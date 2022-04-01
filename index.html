@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Efficient Speech Enhancement with Neural Homomorphic Synthesis</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/user.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Efficient Speech Enhancement with Neural Homomorphic Synthesis <small class="color_fade">Online Supplement</small>
+            </h1>
+        </header>
+
+        <h4> Authors </h4>
+        <div style="font-size: medium;"> Wenbin Jiang, Tao Liu, Kai Yu </div>
+        <h4> Abstract </h4>
+        <div style="font-size: medium;"> 
+            Most neural network based speech enhancement methods work directly on time-frequency representations or learned features without employing the speech production model. This paper proposes an efficient speech enhancement method based on neural homomorphic synthesis. We decompose the speech signal into excitation and vocal with real cepstrum analysis, use two convolutional recurrent neural networks to estimate the target magnitude spectrum of the decomposed components, and synthesize the time-domain minimum phase signal from the estimated components. Finally, the enhanced speech is obtained by the synthesized minimum phase signal and the original noisy phase. Experimental results demonstrated that the proposed method yields a comparable performance with the state-of-the-art complex-valued neural network based method. In addition, we conducted extensive experiments and found that the proposed method is more efficient with a compact model.
+        </div>
+    </br>
+        <h4> Datasets </h4>
+        <div style="font-size: medium;">
+            <li>The <a href="https://www.data-baker.com/en/#/data/index/source">Chinese Mandarin Female Corpus</a> and the <a href="https://zenodo.org/record/1227121"> DEMAND </a> are used for demo. </li>
+            <li>The noisy mixtures are composed by mixing the two corpora with SNR ~ U[-5,10] dB. </li>
+        </div>
+        <h4> Setups </h4>
+        <div style="font-size: medium;">
+            <li>The CRN and configurations are detailed in <a href="https://github.com/jiang-wenbin/NHS-MagSE/blob/master/models.py">models.py</a> and <a href="https://github.com/jiang-wenbin/NHS-MagSE/blob/master/model_arch.py"> model_arch.py</a>, respectively. </li>
+            <li>The DCCRN uses the open-source implementation in <a href="https://github.com/asteroid-team/asteroid/blob/master/asteroid/masknn/recurrent.py">asteroid</a>, and the configurations are detailed in <a href="https://github.com/jiang-wenbin/NHS-MagSE/blob/master/_dccrn_architectures.py">_dccrn_architectures.py</a>. </li>
+        </div>
+    </br>
+        <h4> Audio Samples </h4>
+        <hr class="hr_line">
+        <h3>Seen & Unseen Noise</h3>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Model\Noise</th>
+                    <th>DKITCHEN</th>
+                    <th>OMEETING</th>
+                    <th>PCAFETER</th>
+                    <th>NFIELD</th>
+                    <th>SPSQUARE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td> Clean </td>
+                <td><audio controls=""><source src="samples/Clean/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/4222.wav"></audio></td>
+                </tr>
+                <tr> <td> Noisy </td>
+                <td><audio controls=""><source src="samples/Noisy/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/4222.wav"></audio></td>
+                </tr>
+                <tr> <td> CRN-MagSE </td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/4222.wav"></audio></td>
+                </tr>
+                <tr> <td> DCCRN </td>
+                <td><audio controls=""><source src="samples/DCCRN/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/4222.wav"></audio></td>
+                </tr>
+                <tr> <td> NHS-SE </td>
+                <td><audio controls=""><source src="samples/NHS-SE/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-SE/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-SE/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-SE/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-SE/4222.wav"></audio></td>
+                </tr>
+                <tr> <td> NHS-MagSE </td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/2.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/526.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/1015.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/2237.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/4222.wav"></audio></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size: medium;" class="color_fade"> Note: there first three colmuns are seen noise, and the last two columns are unseen noise. </div>        
+        <h4>Spectrogram of the samples in first column </h4>
+        <img src="img/2.png" class="container">
+    </br>
+</br>
+        <div style="font-size: medium;" class="color_fade"> Note: although the NHS-SE obtained the highest PESQ and eSTOI scores, there is some artificial noise in the enhanced speech. </div>
+        <hr class="hr_line">
+        <!-- <h4>More Compact Model</h4> -->
+        <h3>Fewer number of model parameters</h3>
+        <table class="table mytable">
+            <tr>
+            <td width="30%"> </td>
+            <td> Clean </td> <td><audio controls=""><source src="samples/Clean/1013.wav"></audio></td>
+            <td> Noisy </td> <td><audio controls=""><source src="samples/Noisy/1013.wav"></audio></td>
+            <td width="30%"> </td>
+            </tr>
+        </table>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Model\#Params</th>
+                    <th>3.7 Million</th>
+                    <th>3.0 Million</th>
+                    <th>2.0 Million</th>
+                    <th>1.0 Million</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td> CRN-MagSE </td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/1a/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/1b/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/1c/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CRN-MagSE/1d/1013.wav"></audio></td>
+                </tr>
+                <tr> <td> DCCRN </td>
+                <td><audio controls=""><source src="samples/DCCRN/1a/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/1b/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/1c/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/DCCRN/1d/1013.wav"></audio></td>
+                </tr>
+                <tr> <td> NHS-MagSE </td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/1a/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/1b/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/1c/1013.wav"></audio></td>
+                <td><audio controls=""><source src="samples/NHS-MagSE/1d/1013.wav"></audio></td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Spectrogram of the samples in second (3.0 M) and last (1.0 M) columns</h4>
+        <img src="img/1013.png" class="container">
+        <!-- <hr class="hr_line"> -->
+        <div class="row"> &nbsp; </div> <br/>
+
+
+    </div>
+</body>
